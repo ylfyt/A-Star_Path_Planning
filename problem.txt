@@ -1,0 +1,86 @@
+Kebutuhan Fungsional
+1. Program dapat menerima input file text, dan mengenerate menjadi bentuk graph 
+    1. file1 berisi jumlah node(N), dan nama node, minimal ada 8 node
+    2. file2 berisi adjancency matrix berukuran NxN
+
+
+2. Program dapat menampilkan graph
+    - Visualisasi graph
+    - Visualisasi Peta (google maps api) BONUS
+
+3. Program dapat menerima input node asal dan node tujuan
+
+4. Program dapat menampilkan lintasan terpendek beserta jaraknya antara simpul asal dan simpul tujuan.
+    - Algoritma A*
+
+5. (BONUS) Google Map API, dapat mengeklik titik pada peta, dan program dapat mengenerate rute terpendek dan bobotnya
+
+
+
+Fungsi
+-----------------------------------------
+1. input file, convertGraph
+    input : file txt (name)
+    output : Graph
+
+2. Visualisasi (Turtle)
+    - Graph
+        input : Graph
+        output : (Visualisasi Graph)
+    - Hasil A*
+        input : Graph, List
+        output : (Visualisasi Graph, sudah diubah seperti warnanya)
+
+3. PathFinding pakai A*
+    input : Graph, node asal, node akhir
+    output : List [asal, .., akhir]
+
+
+4. 
+class Node:
+    public string name;
+    public int x;
+    public int y;
+
+    Node(string name, int x, int y);
+
+Class Graph:
+    private int numOfNode;
+    private Node nodes[];
+    private int numOfConnectedNode[];
+    private int connectedNode[][];
+
+    Graph();
+    // assign
+    Graph(Node nodesTemp[], int numOfConnectedNodeTemp[], int connectedNodeTemp[][]);
+    void addNode(Node node);
+    Node getNode(int idx);
+    void addConnectedNode(int idxNode, int idxConnect);
+    void addEdge(int idx1, int idx2);
+    int[] getListConnectedNode(int idxNode);
+    int[][] getListListConnected();
+    int[] getListNumOfConnectedNode();
+    int getNumOfConnectedNode(int idxNode);
+    Node[] getListNode();
+    Node getNode(int idxNode);
+    int getNumOfNode();
+    int getIdxConnectedNode(int idxNode, int idx);
+    Node getConnectedNode(int idxNode, int idxConnect);
+    int getIdxNode(string node);
+    bool isExistEdge(int idx1, int idx2);
+    void print();
+
+
+
+
+(NANTI)
+-----------------------------------------
+BONUS
+- convert Peta ke Graph (ketika awal" generate peta)
+    input : google maps api
+    output : Graph
+
+
+Karlsen : 3, 4
+Yudi : 1, 2
+
