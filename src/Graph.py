@@ -17,7 +17,7 @@ class Graph:
         # self.connectedNode = []         # array of array of integer
 
     def __init__(self, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
-        self.numOfNode = 0
+        self.numOfNode = len(nodesTemp)
         self.nodes = nodesTemp
         self.numOfConnectedNode = numOfConnectedNodeTemp
         self.connectedNode = connectedNodeTemp
