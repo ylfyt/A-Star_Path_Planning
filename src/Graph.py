@@ -41,7 +41,7 @@ class Graph:
         return self.numOfConnectedNode[idxNode]
     
     def getNumOfNode(self):
-        return self.numOfNode
+        return len(self.nodes)
     
     def getIdxConnectedNode(self, idxNode, idx):
         return self.connectedNode[idxNode][idx]
@@ -55,7 +55,7 @@ class Graph:
             if x.name == node:
                 return count
             else:
-                count++
+                count = count + 1
 
     def addNode(self, newNode):
         self.nodes.append(newNode)
@@ -88,10 +88,24 @@ class Graph:
         print(connectedNode[i])
 
 
-    # // assign
-    # void addNode(Node node);
-    # void addConnectedNode(int idxNode, int idxConnect);
-    # void addEdge(int idx1, int idx2);
 
-    # bool isExistEdge(int idx1, int idx2);
-    # void print();
+# declare node
+n1 = Node("A", 0, 0)
+n2 = Node("B", 1, 1)
+n3 = Node("C", 2, 2)
+n4 = Node("D", 3, 3)
+n5 = Node("E", 4, 4)
+
+# declare nodes
+nodes = [n1, n2, n3, n4, n5]
+numOfConnectedNode1 = [1, 0, 0, 0, 1]
+connectedNode1 = [
+    [0,0,0,0,1],
+    [],
+    [],
+    [],
+    []
+]
+g1 = Graph(nodes, numOfConnectedNode1, )
+g1.nodes = [n1, n2, n3, n4, n5]
+g1.
