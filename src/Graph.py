@@ -58,7 +58,10 @@ class Graph:
                 count = count + 1
 
     def addNode(self, newNode):
+        self.numOfNode += 1
         self.nodes.append(newNode)
+        self.numOfConnectedNode.append(0)
+        self.connectedNode.append([])
 
     def addConnectedNode(self, idxNode, idxConnect):
         self.connectedNode[idxNode].append(idxConnect)
@@ -71,8 +74,21 @@ class Graph:
         for x in self.connectedNode[idx1]:
             if x == idx2:
                 return True
-            else:
-                return False
+
+        return False
+    
+    def getDistance(self, idx1, idx2):
+        if (self.isExistEdge(idx1, idx2)):
+            x1 = self.nodes[idx1].x
+            y1 = self.nodes[idx1].y
+
+            x2 = self.nodes[idx2].x
+            y2 = self.nodes[idx2].y
+            
+            # Sementara pakau eucludian
+            return ((x2-x1)**2 + (y2-y1)**2)**(1/2)
+        else:
+            return -1
 
     def printGraph(self):
         for i in range(self.numOfNode):
@@ -89,24 +105,24 @@ class Graph:
 
 
 
-# declare node
-n1 = Node("A", 0, 0)
-n2 = Node("B", 1, 1)
-n3 = Node("C", 2, 2)
-n4 = Node("D", 3, 3)
-n5 = Node("E", 4, 4)
+# # declare node
+# n1 = Node("A", 0, 0)
+# n2 = Node("B", 1, 1)
+# n3 = Node("C", 2, 2)
+# n4 = Node("D", 3, 3)
+# n5 = Node("E", 4, 4)
 
-# declare nodes
-nodes = [n1, n2, n3, n4, n5]
-numOfConnectedNode1 = [1, 0, 0, 0, 1]
-connectedNode1 = [
-    [0,0,0,0,1],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [1,0,0,0,0]
-]
+# # declare nodes
+# nodes = [n1, n2, n3, n4, n5]
+# numOfConnectedNode1 = [1, 0, 0, 0, 1]
+# connectedNode1 = [
+#     [0,0,0,0,1],
+#     [0,0,0,0,0],
+#     [0,0,0,0,0],
+#     [0,0,0,0,0],
+#     [1,0,0,0,0]
+# ]
 
-g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
-g1.printGraph()
+# g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
+# g1.printGraph()
 
