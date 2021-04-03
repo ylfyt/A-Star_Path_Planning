@@ -37,7 +37,7 @@ class Graph:
     def getListNumOfConnectedNode(self):
         return self.numOfConnectedNode
     
-    def getNumOfConnectedNode(self idxNode):
+    def getNumOfConnectedNode(self, idxNode):
         return self.numOfConnectedNode[idxNode]
     
     def getNumOfNode(self):
@@ -74,18 +74,18 @@ class Graph:
             else:
                 return False
 
-    def printGraph(numOfNode, nodes, numOfConnectedNode, connectedNode):
-    for i in range(numOfNode):
-        name = nodes[i].name
-        x = nodes[i].x
-        y = nodes[i].y
-        numOfconnect = numOfConnectedNode[i]
-        data = name + "[" + str(x) + "," + str(y) + "]" + str(numOfconnect)
-        print(data, end=", ")
-    print()
+    def printGraph(self):
+        for i in range(self.numOfNode):
+            name = self.nodes[i].name
+            x = self.nodes[i].x
+            y = self.nodes[i].y
+            numOfconnect = self.numOfConnectedNode[i]
+            data = name + "[" + str(x) + "," + str(y) + "]" + str(numOfconnect)
+            print(data, end=", ")
+        print()
 
-    for i in range(numOfNode):
-        print(connectedNode[i])
+        for i in range(self.numOfNode):
+            print(self.connectedNode[i])
 
 
 
@@ -101,11 +101,12 @@ nodes = [n1, n2, n3, n4, n5]
 numOfConnectedNode1 = [1, 0, 0, 0, 1]
 connectedNode1 = [
     [0,0,0,0,1],
-    [],
-    [],
-    [],
-    []
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [1,0,0,0,0]
 ]
-g1 = Graph(nodes, numOfConnectedNode1, )
-g1.nodes = [n1, n2, n3, n4, n5]
-g1.
+
+g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
+g1.printGraph()
+
