@@ -101,11 +101,12 @@ nodes = [n1, n2, n3, n4, n5]
 numOfConnectedNode1 = [1, 0, 0, 0, 1]
 connectedNode1 = [
     [0,0,0,0,1],
-    [],
-    [],
-    [],
-    []
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [0,0,0,0,0],
+    [1,0,0,0,0]
 ]
-g1 = Graph(nodes, numOfConnectedNode1, )
-g1.nodes = [n1, n2, n3, n4, n5]
-g1.
+
+g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
+g1.printGraph()
+
