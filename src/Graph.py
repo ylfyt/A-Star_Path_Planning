@@ -41,7 +41,7 @@ class Graph:
         return self.numOfConnectedNode[idxNode]
     
     def getNumOfNode(self):
-        return len(self.nodes)
+        return self.numOfNode
     
     def getIdxConnectedNode(self, idxNode, idx):
         return self.connectedNode[idxNode][idx]

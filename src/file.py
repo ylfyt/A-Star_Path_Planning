@@ -2,24 +2,27 @@ from Graph import *
 
 
 def convertTextToGraph(fileName):
+    
     try:
         if (len(fileName) < 4):
-            return False
-
+            dummy = Graph()
+            return dummy
+        
         dirNode = "../test/" + fileName
         dirAdj = "../test/" + fileName[:len(fileName)-4] + "_adj.txt"
         
         fileNode = open(dirNode, "r")
         fileAdj = open(dirAdj, "r")
-
+        
         numOfNode = int(fileNode.readline().split(",")[0])
         
         graph = Graph()
-
+        
         for line in fileNode:
             data = line.split(",")
             if (len(data) < 3+1):
-                return False
+                dummy = Graph()
+                return dummy
             
             x = int(data[0])
             y = int(data[1])
@@ -32,7 +35,8 @@ def convertTextToGraph(fileName):
             line = fileAdj.readline()
             data = line.split(",")
             if (len(data) < numOfNode+1):
-                return False
+                dummy = Graph()
+                return dummy
 
             for j in range(numOfNode):
                 if (data[j] == '1'):
@@ -42,18 +46,20 @@ def convertTextToGraph(fileName):
 
     except IOError:
         print("Graph cannot be converted!!!")
-        return False
+        dummy = Graph()
+        return dummy
 
 
-graph = convertTextToGraph("01.txt")
+# graph = convertTextToGraph("01.txt")
 
-if (graph != False):
-    graph.printGraph()
-    graph.getDistance(0, 2)
-else:
-    print("Master Karlsen")
+# if (graph.getNumOfNode() != 0):
+#     graph.printGraph()
+#     graph.getDistance(0, 2)
+# else:
+#     print("Master Karlsen")
     
-
+# graph = convertTextToGraph("01.txt")
+# graph.printGraph()
 
     
 
