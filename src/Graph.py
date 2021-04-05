@@ -89,6 +89,56 @@ class Graph:
             return ((x2-x1)**2 + (y2-y1)**2)**(1/2)
         else:
             return -1
+    
+    def getMinX(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            minX = self.nodes[0].x
+            for i in range(1, self.numOfNode):
+                if (minX > self.nodes[i].x):
+                    minX = self.nodes[i].x
+            
+            return minX
+    
+    def getMaxX(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            maxX = self.nodes[0].x
+            for i in range(1, self.numOfNode):
+                if (maxX < self.nodes[i].x):
+                    maxX = self.nodes[i].x
+            
+            return maxX
+    
+    def getMinY(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            minY = self.nodes[0].y
+            for i in range(1, self.numOfNode):
+                if (minY > self.nodes[i].y):
+                    minY = self.nodes[i].y
+            
+            return minY
+    
+    def getMaxY(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            maxY = self.nodes[0].y
+            for i in range(1, self.numOfNode):
+                if (maxY < self.nodes[i].y):
+                    maxY = self.nodes[i].y
+            
+            return maxY
+    
+    def getMaxDistanceX(self):
+        return self.getMaxX() - self.getMinX()
+    
+    def getMaxDistanceY(self):
+        return self.getMaxY() - self.getMinY()
 
     def printGraph(self):
         for i in range(self.numOfNode):
