@@ -14,18 +14,7 @@ def showGraphVisualization(graph):
     if (graph.getNumOfNode() == 0):
         print("Graph is empty!!")
         return
-
-    f = graph.getMaxDistanceX()
-
-    if (f < graph.getMaxDistanceY()):
-        f = graph.getMaxDistanceY()
-
-    cut = 100
-
-    if (f <= 0):
-        f = graphVisualPanel.winfo_reqwidth()
-    sc = (graphVisualPanel.winfo_reqwidth()-cut) / f 
-
+    
     for i in range(graph.getNumOfNode()):
         friend = graph.getListConnectedNode(i)
         for j in range(len(friend)):
@@ -33,22 +22,52 @@ def showGraphVisualization(graph):
             if (idx > i):
                 node1 = graph.getNode(i)
                 node2 = graph.getNode(idx)
+                distance = graph.getDistance(i, idx)
+                xPos1 = getPosXRelative(graph, node1.x)
+                yPos1 = getPosYRelative(graph, node1.y)
+                
+                xPos2 = getPosXRelative(graph, node2.x)
+                yPos2 = getPosYRelative(graph, node2.y)
 
-                xPos1 = (node1.x - graph.getMinX())*sc + cut/2
-                yPos1 = (node1.y - graph.getMinY())*sc + cut/2
-
-                xPos2 = (node2.x - graph.getMinX())*sc + cut/2
-                yPos2 = (node2.y - graph.getMinY())*sc + cut/2
-
-                drawLine(xPos1, yPos1, xPos2, yPos2)
+                drawLine(distance, xPos1, yPos1, xPos2, yPos2)
 
     for i in range(graph.getNumOfNode()):
         node = graph.getNode(i)
         
-        xPos = (node.x - graph.getMinX())*sc + cut/2
-        yPos = (node.y - graph.getMinY())*sc + cut/2
+        xPos = getPosXRelative(graph, node.x)
+        yPos = getPosYRelative(graph, node.y)
 
         createNode(node.name, xPos, yPos)
+    
+
+
+def getPosXRelative(graph, x):
+    pad = 100
+
+    xPanelCenter = (graphVisualPanel.winfo_reqwidth()-4-pad)/2
+    xCenterPos = (graph.getMaxX() + graph.getMinX())/2
+    xMaxDisCenter = graph.getMaxDistanceX()/2
+
+    dis = x - xCenterPos
+
+    if (xMaxDisCenter == 0):
+        return xPanelCenter + pad/2
+    else:
+        return dis/xMaxDisCenter * xPanelCenter + xPanelCenter + pad/2
+
+def getPosYRelative(graph, y):
+    pad = 100
+
+    yPanelCenter = (graphVisualPanel.winfo_reqheight()-4-pad)/2
+    yCenterPos = (graph.getMaxY() + graph.getMinY())/2
+    yMaxDisCenter = graph.getMaxDistanceY()/2
+
+    dis = y - yCenterPos
+
+    if (yMaxDisCenter == 0):
+        return yPanelCenter + pad/2
+    else:
+        return dis/yMaxDisCenter * yPanelCenter + yPanelCenter + pad/2
 
 
 def createNode(name, xPos, yPos):
@@ -56,8 +75,11 @@ def createNode(name, xPos, yPos):
     graphVisualPanel.create_oval(xPos-radius, yPos-radius, xPos+radius, yPos+radius, fill="cyan")
     graphVisualPanel.create_text(xPos, yPos, fill="darkblue", text=name)
 
-def drawLine(xPos1, yPos1, xPos2, yPos2):
+def drawLine(dis, xPos1, yPos1, xPos2, yPos2):
     graphVisualPanel.create_line(xPos1, yPos1, xPos2, yPos2, fill="red", width=2)
+    xTextPos = (xPos2 + xPos1)/2
+    yTextPos = (yPos2 + yPos1)/2
+    graphVisualPanel.create_text(xTextPos, yTextPos, text=round(dis, 2))
 
 # End of Graph Visualization
 
