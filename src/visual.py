@@ -1,4 +1,5 @@
 from tkinter import filedialog
+from tkinter import ttk
 from tkinter import *
 
 from Graph import *
@@ -110,6 +111,10 @@ app.bind('<KeyPress>', onKeyPress)
 
 frame1 = Frame(app)
 frame1.grid(row=0, padx=10, pady=10)
+frame2 = Frame(app)
+frame2.grid(row=1, padx=10, pady=10)
+frame3 = Frame(app, width=610, height=610)
+frame3.grid(row=2, padx=10, pady=10)
 
 browseButton = Button(frame1, text="Browse", command=browse)
 browseButton.grid(row=0, column=0)
@@ -117,10 +122,13 @@ browseButton.grid(row=0, column=0)
 filePathText = Entry(frame1, width=100)
 filePathText.grid(row=0, column=1, columnspan=3, padx=10)
 
-frame2 = Frame(app, width=610, height=610)
-frame2.grid(row=1)
+label1 = Label(frame2, text="Hello World!")
+label1.grid(row=1)
 
-graphVisualPanel = Canvas(frame2, width=600, height=600, bg="light grey")
+cb = ttk.Combobox(frame2, values=("one", "two", "three"))
+cb.grid(row=1, column=1)
+
+graphVisualPanel = Canvas(frame3, width=600, height=600, bg="light grey")
 graphVisualPanel.grid(row=0, pady=5, padx=5)
 
 app.mainloop()
