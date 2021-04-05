@@ -1,7 +1,7 @@
+from tkinter import *
+
 from Graph import *
 from file import *
-
-from tkinter import *
 
 SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 720
