@@ -16,8 +16,8 @@ class Graph:
         # self.numOfConnectedNode = []    # array of integer
         # self.connectedNode = []         # array of array of integer
 
-    def __init__(self, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
-        self.numOfNode = len(nodesTemp)
+    def __init__(self, numOfNodeTemp = 0, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
+        self.numOfNode = numOfNodeTemp
         self.nodes = nodesTemp
         self.numOfConnectedNode = numOfConnectedNodeTemp
         self.connectedNode = connectedNodeTemp
@@ -64,6 +64,7 @@ class Graph:
         self.connectedNode.append([])
 
     def addConnectedNode(self, idxNode, idxConnect):
+        self.numOfConnectedNode[idxNode] += 1
         self.connectedNode[idxNode].append(idxConnect)
 
     def addEdge(self, idx1, idx2):
@@ -146,6 +147,7 @@ class Graph:
             x = self.nodes[i].x
             y = self.nodes[i].y
             numOfconnect = self.numOfConnectedNode[i]
+            # print(numOfconnect)
             data = name + "[" + str(x) + "," + str(y) + "]" + str(numOfconnect)
             print(data, end=", ")
         print()

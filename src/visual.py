@@ -1,3 +1,4 @@
+from tkinter import filedialog
 from tkinter import *
 
 from Graph import *
@@ -39,8 +40,6 @@ def showGraphVisualization(graph):
 
         createNode(node.name, xPos, yPos)
     
-
-
 def getPosXRelative(graph, x):
     pad = 100
 
@@ -84,6 +83,19 @@ def drawLine(dis, xPos1, yPos1, xPos2, yPos2):
 # End of Graph Visualization
 
 
+def browse():
+    print("browse!!")
+    filePath = filedialog.askopenfilename(initialdir="/", title="Select Graph File", filetypes=(('text files', 'txt'),))
+    # print(filePath)
+    if (len(filePath) > 0):
+        filePathText.delete(0, END)
+        filePathText.insert(0, filePath)
+        resetGraphVisualizationPanel()
+        graph = convertTextToGraph(filePath)
+        showGraphVisualization(graph)
+
+def resetGraphVisualizationPanel():
+    graphVisualPanel.delete("all")
 
 def onKeyPress(event):
     if (event.char == '/'):
@@ -99,7 +111,7 @@ app.bind('<KeyPress>', onKeyPress)
 frame1 = Frame(app)
 frame1.grid(row=0, padx=10, pady=10)
 
-browseButton = Button(frame1, text="Browse")
+browseButton = Button(frame1, text="Browse", command=browse)
 browseButton.grid(row=0, column=0)
 
 filePathText = Entry(frame1, width=100)
@@ -110,10 +122,5 @@ frame2.grid(row=1)
 
 graphVisualPanel = Canvas(frame2, width=600, height=600, bg="light grey")
 graphVisualPanel.grid(row=0, pady=5, padx=5)
-
-
-graph = convertTextToGraph("01.txt")
-showGraphVisualization(graph)
-
 
 app.mainloop()

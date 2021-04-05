@@ -1,22 +1,22 @@
 from Graph import *
 
 
-def convertTextToGraph(fileName):
+def convertTextToGraph(filePath):
     
     try:
-        if (len(fileName) < 4):
+        if (len(filePath) < 4):
             dummy = Graph()
             return dummy
         
-        dirNode = "../test/" + fileName
-        dirAdj = "../test/" + fileName[:len(fileName)-4] + "_adj.txt"
+        dirNode = filePath
+        dirAdj = filePath[:len(filePath)-4] + "_adj.txt"
         
         fileNode = open(dirNode, "r")
         fileAdj = open(dirAdj, "r")
         
         numOfNode = int(fileNode.readline().split(",")[0])
         
-        graph = Graph()
+        graph = Graph(0, [], [], [])
         
         for line in fileNode:
             data = line.split(",")
