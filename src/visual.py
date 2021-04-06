@@ -93,10 +93,33 @@ def browse():
         filePathText.insert(0, filePath)
         resetGraphVisualizationPanel()
         graph = convertTextToGraph(filePath)
-        showGraphVisualization(graph)
+        
+        if (graph.getNumOfNode() > 0):
+            resetDropdown()
+            showGraphVisualization(graph)
+            setDrowdownMenu(graph.getListNode())
+
 
 def resetGraphVisualizationPanel():
     graphVisualPanel.delete("all")
+
+
+def resetDropdown():
+    print("Reset Dropdown")
+    nodeFromDropdown.set('')
+    nodeToDropdown.set('')
+    nodeFromDropdown["values"] = []
+    nodeToDropdown["values"] = []
+    nodeFromDropdown.select_clear()
+    nodeToDropdown.select_clear()
+
+def setDrowdownMenu(nodes):
+    val = []
+    for i in range(len(nodes)):
+        val.append(nodes[i].name)
+    
+    nodeFromDropdown["values"] = val
+    nodeToDropdown["values"] = val
 
 def onKeyPress(event):
     if (event.char == '/'):
@@ -122,11 +145,18 @@ browseButton.grid(row=0, column=0)
 filePathText = Entry(frame1, width=100)
 filePathText.grid(row=0, column=1, columnspan=3, padx=10)
 
-label1 = Label(frame2, text="Hello World!")
-label1.grid(row=1)
+labelTextFrom = Label(frame2, text="From : ")
+labelTextFrom.grid(row=0, column=0)
+nodeFromDropdown = ttk.Combobox(frame2, values=(), state="readonly")
+nodeFromDropdown.grid(row=0, column=1)
 
-cb = ttk.Combobox(frame2, values=("one", "two", "three"))
-cb.grid(row=1, column=1)
+fillLabel = Label(frame2, text=" ")
+fillLabel.grid(row=0, column=2, padx=20)
+
+labelTextTo = Label(frame2, text="To : ")
+labelTextTo.grid(row=0, column=3)
+nodeToDropdown = ttk.Combobox(frame2, values=(), state="readonly")
+nodeToDropdown.grid(row=0, column=4)
 
 graphVisualPanel = Canvas(frame3, width=600, height=600, bg="light grey")
 graphVisualPanel.grid(row=0, pady=5, padx=5)
