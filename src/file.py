@@ -1,6 +1,5 @@
 from Graph import *
 
-
 def convertTextToGraph(filePath):
     
     try:
@@ -24,8 +23,8 @@ def convertTextToGraph(filePath):
                 dummy = Graph()
                 return dummy
             
-            x = int(data[0])
-            y = int(data[1])
+            x = float(data[0])
+            y = float(data[1])
             name = data[2]
             node = Node(name, x, y)
 
@@ -48,18 +47,6 @@ def convertTextToGraph(filePath):
         print("Graph cannot be converted!!!")
         dummy = Graph()
         return dummy
-
-
-# graph = convertTextToGraph("01.txt")
-
-# if (graph.getNumOfNode() != 0):
-#     graph.printGraph()
-#     graph.getDistance(0, 2)
-# else:
-#     print("Master Karlsen")
-    
-# graph = convertTextToGraph("01.txt")
-# graph.printGraph()
 
     
 

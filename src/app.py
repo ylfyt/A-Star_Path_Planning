@@ -3,7 +3,8 @@ from tkinter import ttk
 from tkinter import *
 
 from Graph import *
-from file import *
+from File import *
+from Astar import findPath
 
 SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 720
@@ -61,7 +62,7 @@ def showGraphVisualization(graph, path):
         
         if (len(path) > 0):
             if (i in path):
-                color = "green"
+                color = "orange"
 
         createNode(node.name, xPos, yPos, color)
     
@@ -103,22 +104,53 @@ def drawLine(dis, xPos1, yPos1, xPos2, yPos2, color):
     graphVisualPanel.create_line(xPos1, yPos1, xPos2, yPos2, fill=color, width=2)
     xTextPos = (xPos2 + xPos1)/2
     yTextPos = (yPos2 + yPos1)/2
-    graphVisualPanel.create_text(xTextPos, yTextPos, text=round(dis, 2))
+    graphVisualPanel.create_text(xTextPos, yTextPos, text=round(dis, 2), fill="black")
 
 
-def showMinimumPath(path):
+def showMinimumPath(graph, path):
     print("Show minimum path")
-    global graph
-    if (len(path) > 0 and graph.getNumOfNode() > 0):
+    if (len(path) > 0):
         resetGraphVisualizationPanel()
+        s = getStringPath(path)
+        pathLabel['text'] = s
         showGraphVisualization(graph, path)
 
+def showDistanceHeuristic(graph, heu):
+    heuLabel.delete("1.0", "end")
+    row = 1
+    val = ""
+    for i in range(len(heu)):
+        temp = ""
+        name = graph.getNode(i).name
+        temp += name
+        temp += " : " + str(round(heu[i], 2)) + "; "
+        if (len(val + temp) >= 74*row):
+            row += 1
+            val += '\n' + temp
+        else:
+            val += temp
+    heuLabel.insert(END, val)
 
 # End of Graph Visualization
 
-def aStar():
+def searchPath():
     print("A Star")
-    showMinimumPath([0])
+    global graph
+
+    if (graph.getNumOfNode() > 0):
+        
+        if (nodeFromDropdown.current() < 0 or nodeToDropdown.current() < 0):
+            print("Node is not selected!!")
+        else:
+            pathAndHeu = findPath(graph, nodeFromDropdown.current(), nodeToDropdown.current())
+            path = pathAndHeu[0]
+            showDistanceHeuristic(graph, pathAndHeu[1])
+            if (len(path) <= 0):
+                print("Path is not found!!")
+            else:
+                showMinimumPath(graph, path)
+    else:
+        print("Graph is not ready!!")
 
 def browse():
     print("browse!!")
@@ -128,14 +160,26 @@ def browse():
         filePathText.delete(0, END)
         filePathText.insert(0, filePath)
         resetGraphVisualizationPanel()
+        resetDropdown()
+        heuLabel.delete("1.0", "end")
+        pathLabel['text'] = " "
         global graph
         graph = convertTextToGraph(filePath)
         
         if (graph.getNumOfNode() > 0):
-            resetDropdown()
             showGraphVisualization(graph, [])
             setDrowdownMenu(graph.getListNode())
+                
 
+def getStringPath(path):
+    s = ""
+    for i in range(len(path)):
+        name = graph.getNode(path[i]).name
+        s += name
+        if (i != len(path)-1):
+            s += " -> "
+    
+    return s
 
 def resetGraphVisualizationPanel():
     graphVisualPanel.delete("all")
@@ -157,29 +201,22 @@ def setDrowdownMenu(nodes):
     nodeFromDropdown["values"] = val
     nodeToDropdown["values"] = val
 
-def onKeyPress(event):
-    if (event.char == '/'):
-        # graphVisualPanel.delete("all")
-        app.quit()
-
 app = Tk()
-# app.geometry(SCREEN_SIZE)
-app.bind('<KeyPress>', onKeyPress)
+app.title("A Start Path Planning")
 
-
-
+# =========================================================
 frame1 = Frame(app)
 frame1.grid(row=0, padx=10, pady=10)
-frame2 = Frame(app)
-frame2.grid(row=1, padx=10, pady=10)
-frame3 = Frame(app, width=610, height=610)
-frame3.grid(row=2, padx=10, pady=10)
 
 browseButton = Button(frame1, text="Browse", command=browse)
 browseButton.grid(row=0, column=0)
 
 filePathText = Entry(frame1, width=100)
 filePathText.grid(row=0, column=1, columnspan=3, padx=10)
+
+# =========================================================
+frame2 = Frame(app)
+frame2.grid(row=1, padx=10, pady=10)
 
 labelTextFrom = Label(frame2, text="From : ")
 labelTextFrom.grid(row=0, column=0)
@@ -194,10 +231,31 @@ labelTextTo.grid(row=0, column=3)
 nodeToDropdown = ttk.Combobox(frame2, values=(), state="readonly")
 nodeToDropdown.grid(row=0, column=4)
 
-searchButton = Button(frame2, text="Search", command=aStar)
-searchButton.grid(row=0, column=5, padx=40)
+searchButton = Button(frame2, text="Search", width=10, height=2, command=searchPath)
+searchButton.grid(row=0, column=7, padx=40)
 
-graphVisualPanel = Canvas(frame3, width=600, height=600, bg="light grey")
+# =========================================================
+frame3 = Frame(app)
+frame3.grid(row=2, padx=10, pady=10)
+
+pathTextLabel = Label(frame3, text="Path : ")
+pathTextLabel.grid(row=0, column=0)
+pathLabel = Label(frame3, text=" ")
+pathLabel.grid(row=0, column=1)
+
+# =========================================================
+frame4 = Frame(app)
+frame4.grid(row=3, padx=10, pady=10)
+heuTextLabel = Label(frame4, text="Heuristic : ")
+heuTextLabel.grid(row=0, column=0)
+heuLabel = Text(frame4, height=3, width=74)
+heuLabel.grid(row=1, column=0)
+
+# =========================================================
+frame5 = Frame(app, width=610, height=610)
+frame5.grid(row=4, padx=10, pady=10)
+
+graphVisualPanel = Canvas(frame5, width=600, height=600, bg="light grey")
 graphVisualPanel.grid(row=0, pady=5, padx=5)
 
 app.mainloop()
