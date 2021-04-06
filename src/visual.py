@@ -9,14 +9,23 @@ SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 720
 SCREEN_SIZE = f"{SCREEN_WIDTH}x{SCREEN_HEIGHT}"
 
+graph = Graph(0, [], [], [])
 
 # Graph visualization
 
-def showGraphVisualization(graph):
+def showGraphVisualization(graph, path):
     if (graph.getNumOfNode() == 0):
         print("Graph is empty!!")
         return
     
+    edges = []
+    if (len(path) > 1):
+        for i in range(0, len(path)-1):
+            edge = []
+            edge.append(path[i])
+            edge.append(path[i+1])
+            edges.append(edge)
+
     for i in range(graph.getNumOfNode()):
         friend = graph.getListConnectedNode(i)
         for j in range(len(friend)):
@@ -31,7 +40,16 @@ def showGraphVisualization(graph):
                 xPos2 = getPosXRelative(graph, node2.x)
                 yPos2 = getPosYRelative(graph, node2.y)
 
-                drawLine(distance, xPos1, yPos1, xPos2, yPos2)
+                color = "red"
+
+                if (len(edges) > 0):
+                    e1 = [i, idx]
+                    e2 = [idx, i]
+                    if (e1 in edges or e2 in edges):
+                        color = "black"
+
+
+                drawLine(distance, xPos1, yPos1, xPos2, yPos2, color)
 
     for i in range(graph.getNumOfNode()):
         node = graph.getNode(i)
@@ -39,7 +57,13 @@ def showGraphVisualization(graph):
         xPos = getPosXRelative(graph, node.x)
         yPos = getPosYRelative(graph, node.y)
 
-        createNode(node.name, xPos, yPos)
+        color = "cyan"
+        
+        if (len(path) > 0):
+            if (i in path):
+                color = "green"
+
+        createNode(node.name, xPos, yPos, color)
     
 def getPosXRelative(graph, x):
     pad = 100
@@ -70,19 +94,31 @@ def getPosYRelative(graph, y):
         return dis/yMaxDisCenter * yPanelCenter + yPanelCenter + pad/2
 
 
-def createNode(name, xPos, yPos):
+def createNode(name, xPos, yPos, color):
     radius = 20
-    graphVisualPanel.create_oval(xPos-radius, yPos-radius, xPos+radius, yPos+radius, fill="cyan")
+    graphVisualPanel.create_oval(xPos-radius, yPos-radius, xPos+radius, yPos+radius, fill=color)
     graphVisualPanel.create_text(xPos, yPos, fill="darkblue", text=name)
 
-def drawLine(dis, xPos1, yPos1, xPos2, yPos2):
-    graphVisualPanel.create_line(xPos1, yPos1, xPos2, yPos2, fill="red", width=2)
+def drawLine(dis, xPos1, yPos1, xPos2, yPos2, color):
+    graphVisualPanel.create_line(xPos1, yPos1, xPos2, yPos2, fill=color, width=2)
     xTextPos = (xPos2 + xPos1)/2
     yTextPos = (yPos2 + yPos1)/2
     graphVisualPanel.create_text(xTextPos, yTextPos, text=round(dis, 2))
 
+
+def showMinimumPath(path):
+    print("Show minimum path")
+    global graph
+    if (len(path) > 0 and graph.getNumOfNode() > 0):
+        resetGraphVisualizationPanel()
+        showGraphVisualization(graph, path)
+
+
 # End of Graph Visualization
 
+def aStar():
+    print("A Star")
+    showMinimumPath([0])
 
 def browse():
     print("browse!!")
@@ -92,17 +128,17 @@ def browse():
         filePathText.delete(0, END)
         filePathText.insert(0, filePath)
         resetGraphVisualizationPanel()
+        global graph
         graph = convertTextToGraph(filePath)
         
         if (graph.getNumOfNode() > 0):
             resetDropdown()
-            showGraphVisualization(graph)
+            showGraphVisualization(graph, [])
             setDrowdownMenu(graph.getListNode())
 
 
 def resetGraphVisualizationPanel():
     graphVisualPanel.delete("all")
-
 
 def resetDropdown():
     print("Reset Dropdown")
@@ -157,6 +193,9 @@ labelTextTo = Label(frame2, text="To : ")
 labelTextTo.grid(row=0, column=3)
 nodeToDropdown = ttk.Combobox(frame2, values=(), state="readonly")
 nodeToDropdown.grid(row=0, column=4)
+
+searchButton = Button(frame2, text="Search", command=aStar)
+searchButton.grid(row=0, column=5, padx=40)
 
 graphVisualPanel = Canvas(frame3, width=600, height=600, bg="light grey")
 graphVisualPanel.grid(row=0, pady=5, padx=5)
