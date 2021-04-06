@@ -89,24 +89,24 @@ class Graph:
 
 
 
-# declare node
-n1 = Node("A", 0, 0)
-n2 = Node("B", 1, 1)
-n3 = Node("C", 2, 2)
-n4 = Node("D", 3, 3)
-n5 = Node("E", 4, 4)
+# # declare node
+# n1 = Node("A", 0, 0)
+# n2 = Node("B", 1, 1)
+# n3 = Node("C", 2, 2)
+# n4 = Node("D", 3, 3)
+# n5 = Node("E", 4, 4)
 
-# declare nodes
-nodes = [n1, n2, n3, n4, n5]
-numOfConnectedNode1 = [1, 0, 0, 0, 1]
-connectedNode1 = [
-    [0,0,0,0,1],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-    [1,0,0,0,0]
-]
+# # declare nodes
+# nodes = [n1, n2, n3, n4, n5]
+# numOfConnectedNode1 = [1, 0, 0, 0, 1]
+# connectedNode1 = [
+#     [0,0,0,0,1],
+#     [0,0,0,0,0],
+#     [0,0,0,0,0],
+#     [0,0,0,0,0],
+#     [1,0,0,0,0]
+# ]
 
-g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
-g1.printGraph()
+# g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
+# g1.printGraph()
 

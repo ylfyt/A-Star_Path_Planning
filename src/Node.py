@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Node:
     def __init__(self, name, x, y):
         self.name = name
