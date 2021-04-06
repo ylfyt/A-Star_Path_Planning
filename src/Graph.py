@@ -16,8 +16,8 @@ class Graph:
         # self.numOfConnectedNode = []    # array of integer
         # self.connectedNode = []         # array of array of integer
 
-    def __init__(self, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
-        self.numOfNode = len(nodesTemp)
+    def __init__(self, numOfNodeTemp = 0, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
+        self.numOfNode = numOfNodeTemp
         self.nodes = nodesTemp
         self.numOfConnectedNode = numOfConnectedNodeTemp
         self.connectedNode = connectedNodeTemp
@@ -41,7 +41,7 @@ class Graph:
         return self.numOfConnectedNode[idxNode]
     
     def getNumOfNode(self):
-        return len(self.nodes)
+        return self.numOfNode
     
     def getIdxConnectedNode(self, idxNode, idx):
         return self.connectedNode[idxNode][idx]
@@ -58,9 +58,13 @@ class Graph:
                 count = count + 1
 
     def addNode(self, newNode):
+        self.numOfNode += 1
         self.nodes.append(newNode)
+        self.numOfConnectedNode.append(0)
+        self.connectedNode.append([])
 
     def addConnectedNode(self, idxNode, idxConnect):
+        self.numOfConnectedNode[idxNode] += 1
         self.connectedNode[idxNode].append(idxConnect)
 
     def addEdge(self, idx1, idx2):
@@ -71,8 +75,71 @@ class Graph:
         for x in self.connectedNode[idx1]:
             if x == idx2:
                 return True
-            else:
-                return False
+
+        return False
+    
+    def getDistance(self, idx1, idx2):
+        if (self.isExistEdge(idx1, idx2)):
+            x1 = self.nodes[idx1].x
+            y1 = self.nodes[idx1].y
+
+            x2 = self.nodes[idx2].x
+            y2 = self.nodes[idx2].y
+            
+            # Sementara pakau eucludian
+            return ((x2-x1)**2 + (y2-y1)**2)**(1/2)
+        else:
+            return -1
+    
+    def getMinX(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            minX = self.nodes[0].x
+            for i in range(1, self.numOfNode):
+                if (minX > self.nodes[i].x):
+                    minX = self.nodes[i].x
+            
+            return minX
+    
+    def getMaxX(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            maxX = self.nodes[0].x
+            for i in range(1, self.numOfNode):
+                if (maxX < self.nodes[i].x):
+                    maxX = self.nodes[i].x
+            
+            return maxX
+    
+    def getMinY(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            minY = self.nodes[0].y
+            for i in range(1, self.numOfNode):
+                if (minY > self.nodes[i].y):
+                    minY = self.nodes[i].y
+            
+            return minY
+    
+    def getMaxY(self):
+        if (self.numOfNode <= 0):
+            return -999
+        else:
+            maxY = self.nodes[0].y
+            for i in range(1, self.numOfNode):
+                if (maxY < self.nodes[i].y):
+                    maxY = self.nodes[i].y
+            
+            return maxY
+    
+    def getMaxDistanceX(self):
+        return self.getMaxX() - self.getMinX()
+    
+    def getMaxDistanceY(self):
+        return self.getMaxY() - self.getMinY()
 
     def printGraph(self):
         for i in range(self.numOfNode):
@@ -80,6 +147,7 @@ class Graph:
             x = self.nodes[i].x
             y = self.nodes[i].y
             numOfconnect = self.numOfConnectedNode[i]
+            # print(numOfconnect)
             data = name + "[" + str(x) + "," + str(y) + "]" + str(numOfconnect)
             print(data, end=", ")
         print()

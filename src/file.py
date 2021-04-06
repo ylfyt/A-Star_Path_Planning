@@ -1,90 +1,65 @@
-numOfNode = 0
-nodes = []
-numOfConnectedNode = []
-connectedNode = []
+from Graph import *
 
-class Node:
-    name = ""
-    x = -1
-    y = -1
-    def __init__(self, name, x, y):
-        self.name = name
-        self.x = x
-        self.y = y
+
+def convertTextToGraph(filePath):
     
-    def printNode(self):
-        print(self.name + " : " + str(self.x) + ", " + str(self.y))
-    
-
-def printGraph(numOfNode, nodes, numOfConnectedNode, connectedNode):
-    for i in range(numOfNode):
-        name = nodes[i].name
-        x = nodes[i].x
-        y = nodes[i].y
-        numOfconnect = numOfConnectedNode[i]
-        data = name + "[" + str(x) + "," + str(y) + "]" + str(numOfconnect)
-        print(data, end=", ")
-    print()
-
-    for i in range(numOfNode):
-        print(connectedNode[i])
-
-
-def convertTextToGraph(fileName):
     try:
-        if (len(fileName) < 4):
-            return False
-
-        dirNode = "../test/" + fileName
-        dirAdj = "../test/" + fileName[:len(fileName)-4] + "_adj.txt"
+        if (len(filePath) < 4):
+            dummy = Graph()
+            return dummy
+        
+        dirNode = filePath
+        dirAdj = filePath[:len(filePath)-4] + "_adj.txt"
         
         fileNode = open(dirNode, "r")
         fileAdj = open(dirAdj, "r")
-
-        n = fileNode.readline().split(",")[0]
-        global numOfNode 
-        numOfNode = int(n)
-
+        
+        numOfNode = int(fileNode.readline().split(",")[0])
+        
+        graph = Graph(0, [], [], [])
+        
         for line in fileNode:
             data = line.split(",")
             if (len(data) < 3+1):
-                return False
+                dummy = Graph()
+                return dummy
             
             x = int(data[0])
             y = int(data[1])
             name = data[2]
             node = Node(name, x, y)
 
-            nodes.append(node)
-            numOfConnectedNode.append(0)
-            connectedNode.append([])
+            graph.addNode(node)
 
         for i in range(numOfNode):
             line = fileAdj.readline()
             data = line.split(",")
             if (len(data) < numOfNode+1):
-                return False
-            
-            connect = []
+                dummy = Graph()
+                return dummy
+
             for j in range(numOfNode):
                 if (data[j] == '1'):
-                    connect.append(j)
-
-            numOfConnectedNode[i] = len(connect)
-            connectedNode[i] = connect
+                    graph.addConnectedNode(i, j)
         
-        return True
+        return graph
 
     except IOError:
         print("Graph cannot be converted!!!")
-        return False
+        dummy = Graph()
+        return dummy
 
 
-ready = convertTextToGraph("01.txt")
-if (ready):
-    printGraph(numOfNode, nodes, numOfConnectedNode, connectedNode)
+# graph = convertTextToGraph("01.txt")
+
+# if (graph.getNumOfNode() != 0):
+#     graph.printGraph()
+#     graph.getDistance(0, 2)
+# else:
+#     print("Master Karlsen")
     
-
+# graph = convertTextToGraph("01.txt")
+# graph.printGraph()
 
     
 
