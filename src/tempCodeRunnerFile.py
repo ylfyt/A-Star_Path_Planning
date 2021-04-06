@@ -1,0 +1,2 @@
+istic:
+        print(distance)

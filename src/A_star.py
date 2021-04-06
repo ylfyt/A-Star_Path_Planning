@@ -9,15 +9,18 @@ def euclidian(node1, node2):
     return ((node1.x-node2.x)**2+(node1.y-node2.y)**2)**(0.5)
 
 def getHeuristic(graph, idxTujuan, heuristic):
+    # heuristic = []
+    print(idxTujuan)
     nodeTujuan = graph.nodes[idxTujuan]
     dist = 0
     for node in graph.nodes:
         dist = euclidian(node, nodeTujuan)
         heuristic.append(dist)
-
+    
     # untuk cek saja
-    # for distance in heuristic:
-    #     print(distance)
+    for distance in heuristic:
+        print(distance)
+    return heuristic
 
 def fillArrNone(list, graph):
     for i in range(len(graph.nodes)):
@@ -41,10 +44,10 @@ def searchMin(list):
     # return index yang nilainya paling kecil
     return idxMin
 
-def Astar(graph, stack, buntu, idxFrom, idxTo, visited):
+def Astar(graph, stack, buntu, idxFrom, idxTo, visited, h):
     # memasukkan nilai heuristik berdasarkan index tujuan
-    h = []
-    getHeuristic(graph, idxTo, h)
+    # h = []
+    # getHeuristic(graph, idxTo, h)
 
     idxCurNode = idxFrom
     curNode = graph.nodes[idxCurNode]
@@ -119,7 +122,8 @@ g1 = Graph(nodes, numOfConnectedNode1, connectedNode1)
 
 g2 = convertTextToGraph("01.txt")
 
-stack = Astar(g2,[],[],0,4, [])
+h2 = getHeuristic(g2, 2, [])
+# stack = Astar(g2,[],[],0,2, [], h2)
 
-for el in stack:
-    print(el)
+# for el in stack:
+#     print(el)
