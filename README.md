@@ -36,7 +36,7 @@ cara run program wajib:
 1. Masuk ke folder src
 2. ketik "python app.py" pada terminal
 3. Program akan berjalan
-5. Pilih file eksternal dengan mengeklik tombol "Browse"
+5. Pilih file eksternal dengan mengeklik tombol "Browse", lalu pilihlah *File Pertama* jangan file kedua.
 6. Pilih node awal dan node akhir
 7. Tekan tombol "Search"
 8. Visualisasi jalur terpendek akan ditampilkan
