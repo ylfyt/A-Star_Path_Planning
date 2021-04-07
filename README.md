@@ -1,12 +1,12 @@
 # A-Star_Path_Planning
 
 
-Hal-hal yang perlu diinstall untuk bisa menjalankan program:
+##Hal-hal yang perlu diinstall untuk bisa menjalankan program:
 - Python 3.9.0
 - tkinter
 - folium
 
-Format File Test (.txt)
+##Format File Test (.txt)
 - Terdapat 2 file yang harus dibuat
 - File pertama
   1. Setiap baris harus diakhiri dengan tanda koma "," 
@@ -32,7 +32,7 @@ Format File Test (.txt)
     - 0,1,0,0,
     - 1,0,0,0,
 
-cara run program wajib:
+#Cara run program wajib:
 1. Masuk ke folder src
 2. ketik "python app.py" pada terminal
 3. Program akan berjalan
@@ -43,7 +43,7 @@ cara run program wajib:
 9. Selesai
 
 
-cara run program bonus:
+#Cara run program bonus:
 1. Masuk ke folder src
 2. ketik "python map.py" pada terminal
 3. Masukkan node awal dan node akhir yang diinginkan pada terminal
