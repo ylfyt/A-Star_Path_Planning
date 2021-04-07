@@ -6,6 +6,13 @@ Hal-hal yang perlu diinstall untuk bisa menjalankan program:
 - tkinter
 - folium
 
+Format File Test (.txt)
+- Terdapat 2 file yang harus dibuat
+- file pertama
+  1. pada baris pertama merupakan skala dari map yang digunakan untuk mendapatkan koordinat
+      - Jika koordinat didapatkan dari api map, maka secara default masukkanlah 100000
+      - Jika koordinat tidak berdasarkan map tertentu, maka masukkan jumlah skalanya adalah 1
+
 
 cara run program wajib:
 1. Masuk ke folder src
