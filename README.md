@@ -8,7 +8,7 @@ Hal-hal yang perlu diinstall untuk bisa menjalankan program:
 
 Format File Test (.txt)
 - Terdapat 2 file yang harus dibuat
-- file pertama
+- File pertama
   1. Setiap baris harus diakhiri dengan tanda koma "," 
   2. Pada baris pertama merupakan skala dari map yang digunakan untuk mendapatkan koordinat
       - Jika koordinat didapatkan dari api map, maka secara default skalanya adalah 100000
@@ -21,6 +21,16 @@ Format File Test (.txt)
      - 9,100,Node1,
      - 9,102,Node2,
      - 7,99,Node3,
+
+- File kedua
+  1. File kedua merupakan matriks adjancency dari graph pada file pertama
+  2. Nama dari file kedua harus mengikuti nama dari file kedua, dengan ditambakan "_adj". Contoh jika file pertama bernama "01.txt", maka nama file kedua adalah "01_adj.txt".
+  3. Harus terdapat matrix adjacency dengan ukuran NxN, dan setiap baris harus diakhiri dengan koma ","
+  4. Contoh isi file kedua jika banyak node adalah 4
+    - 0,0,0,1,
+    - 0,0,1,0,
+    - 0,1,0,0,
+    - 1,0,0,0,
 
 cara run program wajib:
 1. Masuk ke folder src
