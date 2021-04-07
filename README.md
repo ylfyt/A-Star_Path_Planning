@@ -9,10 +9,18 @@ Hal-hal yang perlu diinstall untuk bisa menjalankan program:
 Format File Test (.txt)
 - Terdapat 2 file yang harus dibuat
 - file pertama
-  1. pada baris pertama merupakan skala dari map yang digunakan untuk mendapatkan koordinat
-      - Jika koordinat didapatkan dari api map, maka secara default masukkanlah 100000
-      - Jika koordinat tidak berdasarkan map tertentu, maka masukkan jumlah skalanya adalah 1
-
+  1. Setiap baris harus diakhiri dengan tanda koma "," 
+  2. Pada baris pertama merupakan skala dari map yang digunakan untuk mendapatkan koordinat
+      - Jika koordinat didapatkan dari api map, maka secara default skalanya adalah 100000
+      - Jika koordinat tidak berdasarkan map tertentu, maka skalanya adalah 1
+  3. Pada baris kedua merupakan jumlah dari node/simpul pada graph
+  4. Jika jumlah simpul adalah N, maka N baris simpul selanjutnya adalah koordinat dan nama simpulnya dengan dipisahkan spasi
+  5. Contoh isi file .txt
+     - 100000,
+     - 3,
+     - 9,100,Node1,
+     - 9,102,Node2,
+     - 7,99,Node3,
 
 cara run program wajib:
 1. Masuk ke folder src
