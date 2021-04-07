@@ -52,6 +52,11 @@
 7. Visualisasi jalur terpendek akan ditampilkan
 8. Selesai
 
+## Jika ingin mengganti peta pada program bonus:
+1. masuk ke file map.py
+2. uncomment variabel map1 yang diinginkan
+3. uncomment juga variabel route_Graph yang diinginkan
+
 
 ### Anggota Kelompok
 - 13519001 - Karlsen Adiyasa Bachtiar
