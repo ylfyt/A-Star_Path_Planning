@@ -34,21 +34,23 @@ def createMarkers(graph):
 
 
 # Create map object
-map1 = folium.Map(location=[-6.8915, 107.6107], zoom_start=20)
+g1 = convertTextToGraph("../test/ITB.txt")
 
-print("Masukkan satu angka diantara 1 sampai 10")
+map1 = folium.Map(location=[-6.892650, 107.610433], zoom_start=20)
+
+
+numOfNode = g1.getNumOfNode()
+
+print("Masukkan satu angka diantara 1 sampai ", numOfNode)
 idxFrom = int(input("Masukkan simpul mulai (dalam integer) : "))
 idxTo = int(input("Masukkan simpul tujuan (dalam integer) : "))
 
-while idxFrom < 1 or idxFrom > 10 or idxTo < 1 or idxTo > 10:
+while idxFrom < 1 or idxFrom > numOfNode or idxTo < 1 or idxTo > numOfNode:
     print("\nMasukkan tidak valid. Coba lagi\n")
-    print("Masukkan satu angka diantara 1 sampai 10")
+    print("Masukkan satu angka diantara 1 sampai ", numOfNode)
     idxFrom = int(input("Masukkan simpul mulai (dalam integer) : "))
     idxTo = int(input("Masukkan simpul tujuan (dalam integer) : "))
 
-
-
-g1 = convertTextToGraph("../test/04.txt")
 
 createMarkers(g1)
 
@@ -71,21 +73,34 @@ route_Graph = [
     [-6.891934, 107.610388]   # 5
 ]
 
+# route_Graph = []
 
-pathAndHeu = findPath(g1, idxFrom-1, idxTo-1)
-path = pathAndHeu[0]
-printPath(path)
+if (numOfNode > 0):
+    # for node in g1.getListNode():
+    #     coor = []
+    #     coor.append(node.x)
+    #     coor.append(node.y)
+    #     route_Graph.append(coor)
+
+# print(route_Graph)
+
+    if (len(route_Graph) > 0):
+        map1 = folium.Map(location=route_Graph[0], zoom_start=20)
+
+    pathAndHeu = findPath(g1, idxFrom-1, idxTo-1)
+    path = pathAndHeu[0]
+    printPath(path)
 
 
-route_Astar = []
-inputRouteAstar(path, route_Astar)
+    route_Astar = []
+    inputRouteAstar(path, route_Astar)
 
 
-# add route to map
-folium.PolyLine(route_Graph).add_to(map1)
+    # add route to map
+    folium.PolyLine(route_Graph).add_to(map1)
 
-# add ant path route to map
-plugins.AntPath(route_Astar).add_to(map1)
+    # add ant path route to map
+    plugins.AntPath(route_Astar).add_to(map1)
 
-# Generate map
-map1.save('map.html')
+    # Generate map
+    map1.save('map.html')
