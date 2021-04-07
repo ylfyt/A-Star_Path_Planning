@@ -10,7 +10,7 @@ SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 720
 SCREEN_SIZE = f"{SCREEN_WIDTH}x{SCREEN_HEIGHT}"
 
-graph = Graph(0, [], [], [])
+graph = Graph(1, 0, [], [], [])
 
 # Graph visualization
 

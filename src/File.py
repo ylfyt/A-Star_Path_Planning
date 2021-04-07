@@ -13,9 +13,11 @@ def convertTextToGraph(filePath):
         fileNode = open(dirNode, "r")
         fileAdj = open(dirAdj, "r")
         
+        scale = int(fileNode.readline().split(",")[0])
+
         numOfNode = int(fileNode.readline().split(",")[0])
         
-        graph = Graph(0, [], [], [])
+        graph = Graph(scale, 0, [], [], [])
         
         for line in fileNode:
             data = line.split(",")

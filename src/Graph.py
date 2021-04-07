@@ -16,7 +16,8 @@ class Graph:
         # self.numOfConnectedNode = []    # array of integer
         # self.connectedNode = []         # array of array of integer
 
-    def __init__(self, numOfNodeTemp = 0, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
+    def __init__(self, scaleTemp = 1, numOfNodeTemp = 0, nodesTemp = [], numOfConnectedNodeTemp = [], connectedNodeTemp = []):
+        self.scale = scaleTemp
         self.numOfNode = numOfNodeTemp
         self.nodes = nodesTemp
         self.numOfConnectedNode = numOfConnectedNodeTemp
@@ -86,7 +87,7 @@ class Graph:
         y2 = self.nodes[idx2].y
         
         # Sementara pakau eucludian
-        return ((x2-x1)**2 + (y2-y1)**2)**(1/2)
+        return (((x2-x1)**2 + (y2-y1)**2)**(1/2)) * self.scale
 
     
     def getMinX(self):
