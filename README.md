@@ -14,7 +14,7 @@ Format File Test (.txt)
       - Jika koordinat didapatkan dari api map, maka secara default skalanya adalah 100000
       - Jika koordinat tidak berdasarkan map tertentu, maka skalanya adalah 1
   3. Pada baris kedua merupakan jumlah dari node/simpul pada graph
-  4. Jika jumlah simpul adalah N, maka N baris simpul selanjutnya adalah koordinat dan nama simpulnya dengan dipisahkan spasi
+  4. Jika banyak simpul adalah N, maka N baris selanjutnya adalah koordinat dan nama simpulnya dengan dipisahkan koma ","
   5. Contoh isi file .txt
      - 100000,
      - 3,
