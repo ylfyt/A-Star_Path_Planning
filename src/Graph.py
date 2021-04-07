@@ -133,6 +133,15 @@ class Graph:
             
             return maxY
     
+    def getDistancePath(self, path):
+        sum = 0
+        for i in range(len(path)-1):
+            idx1 = path[i]
+            idx2 = path[i+1]
+            sum += self.getDistance(idx1, idx2)
+        
+        return sum
+    
     def getMaxDistanceX(self):
         return self.getMaxX() - self.getMinX()
     
